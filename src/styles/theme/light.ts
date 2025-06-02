@@ -9,5 +9,6 @@ export const light = {
     placeholder: '#595959',
     text: '#151515',
   },
+  statusBarStyle: 'dark-content',
   ...generalTheme,
 };

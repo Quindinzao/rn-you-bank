@@ -1,24 +1,21 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+// External libraries
+import { useEffect } from 'react';
+import BootSplash from 'react-native-bootsplash';
 
-import React from 'react';
-import Login from './screens/LogIn';
-// import { ThemeProvider } from 'styled-components/native';
-import { useColorScheme } from 'react-native';
-import { light, dark } from './styles/theme';
+// Routes
+import Routes from './routes';
+
+// Contexts
 import { ThemeProvider } from './contexts/ThemeContext';
 
 const App: React.FC = () => {
-  const scheme = useColorScheme();
-  const currentTheme = scheme === 'dark' ? dark : light;
+  useEffect(() => {
+    BootSplash.hide({ fade: true });
+  }, []);
 
   return (
     <ThemeProvider>
-      <Login />
+      <Routes />
     </ThemeProvider>
   );
 };

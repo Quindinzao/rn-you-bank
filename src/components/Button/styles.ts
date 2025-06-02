@@ -1,5 +1,7 @@
 // External libraries
 import styled from 'styled-components/native';
+
+// Interfaces
 import { ButtonPropsStyled } from '../../interfaces/ButtonProps';
 
 export const YBButton = styled.TouchableOpacity<ButtonPropsStyled>`

@@ -1,0 +1,31 @@
+import * as React from 'react';
+import Svg, { Rect, Defs, Pattern, Use, Image, SvgProps } from 'react-native-svg';
+const IconTransactionActive = (props: SvgProps) => (
+  <Svg
+    width={32}
+    height={32}
+    viewBox="0 0 32 32"
+    fill="none"
+    {...props}
+  >
+    <Rect width={32} height={32} fill="url(#pattern0_51_223)" />
+    <Defs>
+      <Pattern
+        id="pattern0_51_223"
+        patternContentUnits="objectBoundingBox"
+        width={1}
+        height={1}
+      >
+        <Use xlinkHref="#image0_51_223" transform="scale(0.0104167)" />
+      </Pattern>
+      <Image
+        id="image0_51_223"
+        width={96}
+        height={96}
+        preserveAspectRatio="none"
+        xlinkHref="data:image/png;base64,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"
+      />
+    </Defs>
+  </Svg>
+);
+export default IconTransactionActive;

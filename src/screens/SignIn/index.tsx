@@ -2,19 +2,19 @@
 import Button from '../../components/Button';
 
 // Assets
-import Logo from '../../assets/icons/Logo';
+import IconLogo from '../../assets/icons/IconLogo';
 
 // Styles
 import { Container, Content, YBText, YBTextFieldStyled } from './styles';
 
-const Login = () => {
+const SignIn = () => {
   return (
     <Container>
       <Content>
-        <Logo height={99} width={99} />
-        <YBText>Login</YBText>
+        <IconLogo height={99} width={99} />
+        <YBText>Sign In</YBText>
         <YBTextFieldStyled placeholder="Type your e-mail" />
-        <YBTextFieldStyled placeholder="Type your password" />
+        <YBTextFieldStyled placeholder="Type your password" secureTextEntry />
         <Button title="Sign In" />
         <Button title="Register" buttonType="no-background" />
       </Content>
@@ -22,4 +22,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignIn;
