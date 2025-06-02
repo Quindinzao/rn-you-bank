@@ -22,7 +22,7 @@ export const YBText = styled.Text`
   width: 100%;
   margin-top: 8px;
   margin-bottom: 8px;
-  font-size: 24px;
+  font-size: 22px;
 
   font-family: ${({ theme }) => theme.fontFamily.nunitoMedium};
   color: ${({ theme }) => theme.colors.text};

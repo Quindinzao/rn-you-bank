@@ -1,3 +1,4 @@
+// External libraries
 import {
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';

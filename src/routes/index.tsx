@@ -26,7 +26,7 @@ const Routes: React.FC = () => {
         backgroundColor={themeBar.colors.item} // Só funciona no Android
       />
       <NavigationContainer>
-        <AppStack />
+        <AuthStack />
       </NavigationContainer>
     </StatusBarBackground>
   );

@@ -4,16 +4,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ActivityIndicator } from 'react-native';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 
+// Interfaces
+import { ThemeContextProps, ThemeMode } from '../interfaces/ThemeContextProps';
+
 // Styles
 import { dark } from '../styles/theme/dark';
 import { light } from '../styles/theme/light';
-
-type ThemeMode = 'light' | 'dark';
-
-interface ThemeContextProps {
-  toggleTheme: () => void;
-  themeMode: ThemeMode;
-}
 
 const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 

@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 // Routes
 import TabRoutes from '../custom/tab.routes';
-import { propsNavigationStack } from '../model';
+import { propsNavigationStack } from '../models';
 
 const { Navigator, Screen } = createNativeStackNavigator<propsNavigationStack>();
 

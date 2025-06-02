@@ -3,7 +3,7 @@ export const generalTheme = {
   fontFamily: {
     nunitoRegular: 'Nunito-Regular',
     nunitoMedium: 'Nunito-Medium',
-    nunitoSemiBold: 'Nunito SemiBold',
-    nunitoBold: 'Nunito Bold',
+    nunitoSemiBold: 'Nunito-SemiBold',
+    nunitoBold: 'Nunito-Bold',
   },
 };

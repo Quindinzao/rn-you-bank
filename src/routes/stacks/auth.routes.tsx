@@ -7,7 +7,7 @@ import SignIn from '../../screens/SignIn';
 import Register from '../../screens/Register';
 
 // Routes
-import { propsNavigationStack } from '../model';
+import { propsNavigationStack } from '../models';
 
 const { Navigator, Screen } = createNativeStackNavigator<propsNavigationStack>();
 
