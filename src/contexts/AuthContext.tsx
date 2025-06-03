@@ -68,7 +68,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setAuthData(auth);
       await AsyncStorage.setItem(AUTH_KEY, JSON.stringify(auth));
     } catch (error: any) {
-      console.log(':/', error.message || 'Failed to sign in.');
+      console.log(':/', 'Failed to sign in.');
     } finally {
       setIsLoading(false);
     }
