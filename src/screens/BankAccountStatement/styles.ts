@@ -15,10 +15,25 @@ export const Container = styled.SafeAreaView`
   background-color: ${props => props.theme.colors.secondary};
 `;
 
+export const StatementFlatList = styled.FlatList`
+  padding: 18px;
+  margin-bottom: 2px;
+`;
+
 export const Content = styled.View`
   height: 100%;
   width: ${Dimensions.get('screen').width - 36}px;
   align-items: flex-start;
   justify-content: flex-start;
   background-color: blue;
+`;
+
+export const Title = styled.Text`
+  width: 100%;
+  margin-top: 24px;
+  margin-bottom: 8px;
+  font-size: 22px;
+
+  font-family: ${({ theme }) => theme.fontFamily.nunitoMedium};
+  color: ${({ theme }) => theme.colors.text};
 `;

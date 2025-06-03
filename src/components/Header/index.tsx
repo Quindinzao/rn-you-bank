@@ -6,8 +6,9 @@ import IconForward from '../../assets/icons/IconForward';
 import IconVisible from '../../assets/icons/IconVisible';
 import IconInvisible from '../../assets/icons/IconInvisible';
 import { HeaderProps } from '../../interfaces/HeaderProps';
+import { formatCurrency } from '../../utils/formatCurrency';
 
-const Header: React.FC<HeaderProps> = ({userData}) => {
+const Header: React.FC<HeaderProps> = ({userData, onIndexChange}) => {
   const [indexAccount, setIndexAccount] = useState<number>(0);
   const [isAmountVisible, setIsAmountVisible] = useState<boolean>(true);
 
@@ -15,6 +16,8 @@ const Header: React.FC<HeaderProps> = ({userData}) => {
     if (userData.length > 0) {
       const nextIndex = indexAccount === userData.length - 1 ? 0 : indexAccount + 1;
       setIndexAccount(nextIndex);
+      onIndexChange?.(nextIndex);
+
     }
   };
 
@@ -34,14 +37,11 @@ const Header: React.FC<HeaderProps> = ({userData}) => {
         </TouchableOpacity>
       </Row>
       <Row>
-        <YBAmount>{'R$ '}
+        <YBAmount>
           {
-            isAmountVisible ?
-              Number(userData[indexAccount]?.amount || '').toLocaleString('pt-BR', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })
-            : '••••'
+            isAmountVisible
+              ? formatCurrency(userData[indexAccount]?.amount || 0)
+              : '••••'
           }
         </YBAmount>
         <TouchableOpacity activeOpacity={0.6} onPress={() => setIsAmountVisible(!isAmountVisible)}>

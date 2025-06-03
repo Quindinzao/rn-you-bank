@@ -1,0 +1,47 @@
+import { Alert } from 'react-native';
+import { api } from './api';
+
+interface GetStatementsParams {
+  token: string;
+  // start_date?: string; // 'YYYY-MM-DD' ou ISO 8601
+  // end_date?: string;
+  min_value?: number;
+  max_value?: number;
+  transfer_type?: 'sent' | 'received';
+  per_page?: number;
+  page?: number;
+}
+
+export const getTransferStatements = async (params: GetStatementsParams) => {
+  const {
+    token,
+    // start_date,
+    // end_date,
+    min_value,
+    max_value,
+    transfer_type,
+    per_page = 10,
+    page = 1,
+  } = params;
+
+  try {
+    const response = await api.get('/users/bank_account_transfers/statements', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+      },
+      params: {
+        min_value,
+        max_value,
+        transfer_type,
+        per_page,
+        page,
+      },
+    });
+
+    return response.data;
+  } catch (err: any) {
+    Alert.alert('Error', 'Something went wrong, please try again later.');
+    throw err;
+  }
+};
