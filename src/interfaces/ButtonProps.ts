@@ -9,5 +9,6 @@ export interface ButtonPropsStyled {
 
 export interface ButtonProps extends TouchableHighlightProps {
   title: string;
+  isLoading?: boolean;
   buttonType?: ButtonType;
 }

@@ -1,0 +1,19 @@
+// External libraries
+import { Alert } from 'react-native';
+
+// Services
+import { api } from './api';
+
+export const getUserData = async (token: string) => {
+  try {
+    const response = await api.get('/users/bank_accounts/my', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+      },
+    });
+    return response.data;
+  } catch (err: any) {
+    Alert.alert('Error', 'Something went wrong, please try again later.');
+  }
+};

@@ -1,21 +1,16 @@
-// External libraries
-import { useEffect } from 'react';
-import BootSplash from 'react-native-bootsplash';
-
 // Routes
 import Routes from './routes';
 
 // Contexts
 import { ThemeProvider } from './contexts/ThemeContext';
+import { AuthProvider } from './contexts/AuthContext';
 
 const App: React.FC = () => {
-  useEffect(() => {
-    BootSplash.hide({ fade: true });
-  }, []);
-
   return (
     <ThemeProvider>
-      <Routes />
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
     </ThemeProvider>
   );
 };

@@ -4,12 +4,12 @@ import { Alert } from 'react-native';
 // Services
 import { api } from './api';
 
-interface SignInProps {
+interface transferProps {
   email: string;
   password: string;
 }
 
-export const signIn = async (values: SignInProps) => {
+export const transfer = async (values: transferProps) => {
   try {
     const response = await api.put('/auth/sign_in', {
       user: values,
@@ -19,7 +19,7 @@ export const signIn = async (values: SignInProps) => {
     }
     return response.data;
   } catch (err: any) {
-    if (err.status === 401) {
+    if (err.response?.status === 401) {
       Alert.alert('Oops!', 'E-mail or password is incorrect.');
     } else {
       Alert.alert('Error', 'Something went wrong, please try again later.');

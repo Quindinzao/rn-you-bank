@@ -1,5 +1,5 @@
 // External Libraries
-import React from 'react';
+import React, { useState } from 'react';
 import { useTheme } from 'styled-components/native';
 import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
@@ -33,17 +33,35 @@ const RegisterSchema = Yup.object().shape({
 });
 
 const Register = () => {
-  const { name } = useTheme();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { name: themeName } = useTheme();
   const navigation = useNavigation<propsStack>();
 
   const goToSignIn = () => {
     navigation.goBack();
   };
 
+  const handleSubmit = async (
+    name: string,
+    email: string,
+    password: string
+  ) => {
+    setIsLoading(true);
+
+    await handleRegister({
+      name,
+      email,
+      password,
+    });
+
+    setIsLoading(false);
+    navigation.goBack();
+  };
+
   return (
     <Container>
       <Content>
-        {name === 'dark'
+        {themeName === 'dark'
           ? <IconLogoDark height={99} width={99} />
           : <IconLogoLight height={99} width={99} />
         }
@@ -52,7 +70,7 @@ const Register = () => {
         <Formik
           initialValues={{ name: '', email: '', password: '' }}
           validationSchema={RegisterSchema}
-          onSubmit={handleRegister}
+          onSubmit={({ name, email, password }) => handleSubmit(name, email, password)}
         >
           {({ handleChange, handleBlur, handleSubmit: formHandleSubmit, values, errors, touched }) => (
             <>
@@ -85,7 +103,7 @@ const Register = () => {
                 keyboardType="number-pad"
               />
 
-              <Button title="Register" onPress={formHandleSubmit as any} />
+              <Button title="Register" onPress={formHandleSubmit as any} isLoading={isLoading} />
               <Button title="Go to Sign In" buttonType="no-background" onPress={goToSignIn} />
             </>
           )}

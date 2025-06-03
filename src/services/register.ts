@@ -16,12 +16,10 @@ export const handleRegister = async (values: RegisterProps) => {
       user: values,
     });
 
-    Alert.alert('Success', 'Account created successfully!');
+    Alert.alert('Success', 'Transfer successfully!');
     return response.data;
 
   } catch (err: any) {
-    const errorMessage = err.response?.data?.error || err.message || 'Unknown error';
-    console.log(errorMessage);
-    Alert.alert('Error', 'Try later.');
+    Alert.alert('Error', 'Something went wrong, please try again later.');
   }
 };

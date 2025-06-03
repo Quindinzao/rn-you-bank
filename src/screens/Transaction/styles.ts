@@ -1,14 +1,27 @@
 // External Libraries
-import { Dimensions, Platform } from 'react-native';
+import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
+import TextField from '../../components/TextField';
+import Button from '../../components/Button';
 
-const isAndroid = Platform.OS === 'android' ? 32 : 0;
+export const ScrollView = styled.ScrollView`
+  flex: 1;
+
+  background-color: ${props => props.theme.colors.secondary};
+`;
 
 export const Container = styled.SafeAreaView`
   flex: 1;
   align-items: center;
   justify-content: flex-start;
+  padding-bottom: 12px;
+
   background-color: ${props => props.theme.colors.secondary};
+`;
+
+export const AccountItemFlatList = styled.FlatList`
+  padding: 18px;
+  margin-bottom: 2px;
 `;
 
 export const Content = styled.View`
@@ -16,51 +29,22 @@ export const Content = styled.View`
   width: ${Dimensions.get('screen').width - 36}px;
   align-items: flex-start;
   justify-content: flex-start;
-  background-color: blue;
 `;
 
-export const Header = styled.View`
-  height: ${isAndroid ? 190 : 150}px;
+export const Title = styled.Text`
   width: 100%;
-  padding: 20px 24px;
-  padding-top: ${isAndroid ? 54 : 24}px;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-direction: column;
-
-  background-color: ${({ theme }) => theme.colors.item};
-`;
-
-export const Row = styled.View`
-  width: 100%;
-
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
-`;
-
-export const YBName = styled.Text`
-  width: 100%;
-  margin: 0px;
-  font-size: 18px;
+  margin-top: 24px;
+  margin-bottom: 8px;
+  font-size: 22px;
 
   font-family: ${({ theme }) => theme.fontFamily.nunitoMedium};
   color: ${({ theme }) => theme.colors.text};
 `;
 
-export const YBAccountNumber = styled.Text`
-  width: 100%;
-  margin: 0px;
-  font-size: 12px;
-
-  font-family: ${({ theme }) => theme.fontFamily.nunitoRegular};
-  color: ${({ theme }) => theme.colors.text};
+export const TextFieldStyled = styled(TextField)`
+  margin-top: 12px;
 `;
 
-export const YBAmount = styled.Text`
-  margin: 0px;
-  font-size: 18px;
-
-  font-family: ${({ theme }) => theme.fontFamily.nunitoBold};
-  color: ${({ theme }) => theme.colors.primary};
+export const ButtonStyled = styled(Button)`
+  margin-top: 12px;
 `;

@@ -10,8 +10,8 @@ import Button from '../../components/Button';
 // Routes
 import { propsStack } from '../../routes/models';
 
-// Services
-import { handleSignIn } from '../../services/signin';
+// Contexts
+import { useAuth } from '../../contexts/AuthContext';
 
 // Assets
 import IconLogoDark from '../../assets/icons/IconLogoDark';
@@ -26,27 +26,27 @@ const SignInSchema = Yup.object().shape({
 });
 
 const SignIn = () => {
+  const { handleSignIn , isLoading } = useAuth();
   const { name } = useTheme();
   const navigation = useNavigation<propsStack>();
-  const goToRegister = () => {
-    navigation.navigate('Register');
-  };
+  const goToRegister = () => navigation.navigate('Register');
 
   return (
     <Container>
       <Content>
-        {name === 'dark'
-          ? <IconLogoDark height={99} width={99} />
-          : <IconLogoLight height={99} width={99} />
-        }
+        {name === 'dark' ? (
+          <IconLogoDark height={99} width={99} />
+        ) : (
+          <IconLogoLight height={99} width={99} />
+        )}
         <YBText>Sign In</YBText>
 
         <Formik
           initialValues={{ email: '', password: '' }}
           validationSchema={SignInSchema}
-          onSubmit={handleSignIn}
+          onSubmit={({ email, password }) => handleSignIn(email, password)}
         >
-          {({ handleChange, handleBlur, handleSubmit: formHandleSubmit, values, errors, touched }) => (
+          {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
             <>
               <YBTextFieldStyled
                 placeholder="Type your e-mail"
@@ -54,6 +54,7 @@ const SignIn = () => {
                 onChangeText={handleChange('email')}
                 onBlur={handleBlur('email')}
                 error={touched.email ? errors.email : undefined}
+                keyboardType="email-address"
                 autoCapitalize="none"
               />
               <YBTextFieldStyled
@@ -64,7 +65,7 @@ const SignIn = () => {
                 error={touched.password ? errors.password : undefined}
                 secureTextEntry
               />
-              <Button title="Sign In" onPress={formHandleSubmit as any} />
+              <Button title="Sign In" onPress={handleSubmit as any} isLoading={isLoading} />
               <Button title="Go to Register" buttonType="no-background" onPress={goToRegister} />
             </>
           )}
