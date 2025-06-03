@@ -23,7 +23,6 @@ export const getTransferStatements = async (params: GetStatementsParams) => {
     per_page = 10,
     page = 1,
   } = params;
-  Alert.alert(typeof min_value, typeof max_value);
   try {
     const response = await api.get('/users/bank_account_transfers/statements', {
       headers: {

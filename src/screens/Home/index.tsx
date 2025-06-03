@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // External libraries
 import { useEffect, useState } from 'react';
-import { Alert, RefreshControl } from 'react-native';
+import { RefreshControl } from 'react-native';
 
 // Components
 import MessageError from '../../components/MessageError';
@@ -45,8 +45,6 @@ const Home: React.FC = () => {
           per_page: 3,
         }),
       ]);
-
-      Alert.alert('transfer.bank_account_transfers', JSON.stringify(transfer.bank_account_transfers[0]));
 
       setError('');
       setUserData(user.user_bank_accounts);

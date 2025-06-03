@@ -2,6 +2,10 @@
 import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 
+// Components
+import Button from '../../components/Button';
+import TextField from '../../components/TextField';
+
 export const ScrollView = styled.ScrollView`
   flex: 1;
 
@@ -36,4 +40,12 @@ export const Title = styled.Text`
 
   font-family: ${({ theme }) => theme.fontFamily.nunitoMedium};
   color: ${({ theme }) => theme.colors.text};
+`;
+
+export const StyedButton = styled(Button)`
+  margin-top: 12px;
+`;
+
+export const StyledTextField = styled(TextField)`
+  margin-top: 12px;
 `;

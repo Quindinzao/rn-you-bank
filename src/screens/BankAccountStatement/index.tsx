@@ -19,13 +19,11 @@ import { getUserData } from '../../services/getUserData';
 import { UserDataProps } from '../../interfaces/UserDataProps';
 
 // Styles
-import { Container, ScrollView, StatementFlatList, Title } from './styles';
+import { Container, ScrollView, StatementFlatList, StyedButton, StyledTextField, Title } from './styles';
 import { getTransferStatements } from '../../services/getTransferStatements';
 import BankStatement from '../../components/BankStatement';
 import { useTheme } from 'styled-components/native';
 import RadioGroup from '../../components/RadioGroup';
-import Button from '../../components/Button';
-import TextField from '../../components/TextField';
 
 const BankAccountStatement: React.FC = () => {
   const { colors } = useTheme();
@@ -104,7 +102,7 @@ const BankAccountStatement: React.FC = () => {
             }}
           />
         )}
-        ListEmptyComponent={<Title>No accounts available</Title>}
+        ListEmptyComponent={<Title>No bank statement available</Title>}
         ListHeaderComponent={
           <>
             <RadioGroup
@@ -116,9 +114,9 @@ const BankAccountStatement: React.FC = () => {
               selectedValue={selectedType}
               onSelect={setSelectedType}
             />
-            <TextField placeholder="Max value" onChangeText={(event) => setMaxValue(parseInt(event))}/>
-            <TextField placeholder="MIn value" onChangeText={(event) => setMinValue(parseInt(event))}/>
-            <Button title="Apply" onPress={() => callUserData()}/>
+            <StyledTextField placeholder="Max value" onChangeText={(event) => setMaxValue(parseInt(event))}/>
+            <StyledTextField placeholder="MIn value" onChangeText={(event) => setMinValue(parseInt(event))}/>
+            <StyedButton title="Apply" onPress={() => callUserData()}/>
           </>
         }
         refreshControl={
