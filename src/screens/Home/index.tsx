@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // External libraries
 import { useEffect, useState } from 'react';
-import { RefreshControl } from 'react-native';
+import { Alert, RefreshControl } from 'react-native';
 
 // Components
 import MessageError from '../../components/MessageError';
@@ -41,11 +41,12 @@ const Home: React.FC = () => {
         getUserData(token),
         getTransferStatements({
           token: token,
-          // transfer_type: 'sent',
           page: 1,
           per_page: 3,
         }),
       ]);
+
+      Alert.alert('transfer.bank_account_transfers', JSON.stringify(transfer.bank_account_transfers[0]));
 
       setError('');
       setUserData(user.user_bank_accounts);
@@ -92,9 +93,6 @@ const Home: React.FC = () => {
               holder_name: item.from_user_bank_account.holder_name,
               bank_name: item.from_user_bank_account.bank_name,
               account_type: item.from_user_bank_account.account_type,
-            }}
-            onPress={() => {
-              console.log('done');
             }}
           />
         )}

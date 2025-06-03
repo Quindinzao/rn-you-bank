@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 /* eslint-disable react-hooks/exhaustive-deps */
 // External libraries
 import { useEffect, useState } from 'react';
@@ -22,6 +23,9 @@ import { Container, ScrollView, StatementFlatList, Title } from './styles';
 import { getTransferStatements } from '../../services/getTransferStatements';
 import BankStatement from '../../components/BankStatement';
 import { useTheme } from 'styled-components/native';
+import RadioGroup from '../../components/RadioGroup';
+import Button from '../../components/Button';
+import TextField from '../../components/TextField';
 
 const BankAccountStatement: React.FC = () => {
   const { colors } = useTheme();
@@ -30,6 +34,9 @@ const BankAccountStatement: React.FC = () => {
   const [transferData, setTransferData] = useState<any[]>([]);
   const [error, setError] = useState<string>('');
   const [refreshing, setRefreshing] = useState<boolean>(false);
+  const [selectedType, setSelectedType] = useState<'sent' | 'received' | 'all'>('all');
+  const [maxValue, setMaxValue] = useState<number | undefined>(undefined);
+  const [minValue, setMinValue] = useState<number | undefined>(undefined);
 
   const callUserData = async () => {
     const token = authData?.token;
@@ -40,10 +47,12 @@ const BankAccountStatement: React.FC = () => {
       const [user, transfer ] = await Promise.all([
         getUserData(token),
         getTransferStatements({
-          token: token,
-          // transfer_type: 'sent',
+          token,
+          max_value: maxValue,
+          min_value: minValue,
+          transfer_type: selectedType,
           page: 1,
-          per_page: 20,
+          per_page: 8,
         }),
       ]);
 
@@ -76,7 +85,7 @@ const BankAccountStatement: React.FC = () => {
   return (
     <Container>
       {userData && userData.length > 0 && <Header userData={userData} />}
-      {transferData && transferData.length > 0 && <StatementFlatList
+      {transferData && <StatementFlatList
         data={transferData}
         keyExtractor={(item: any) => item.id}
         renderItem={({ item } : any) => (
@@ -93,12 +102,25 @@ const BankAccountStatement: React.FC = () => {
               bank_name: item.from_user_bank_account.bank_name,
               account_type: item.from_user_bank_account.account_type,
             }}
-            onPress={() => {
-              console.log('done');
-            }}
           />
         )}
         ListEmptyComponent={<Title>No accounts available</Title>}
+        ListHeaderComponent={
+          <>
+            <RadioGroup
+              options={[
+                { label: 'All', value: 'all' },
+                { label: 'Sent', value: 'sent' },
+                { label: 'Received', value: 'received' },
+              ]}
+              selectedValue={selectedType}
+              onSelect={setSelectedType}
+            />
+            <TextField placeholder="Max value" onChangeText={(event) => setMaxValue(parseInt(event))}/>
+            <TextField placeholder="MIn value" onChangeText={(event) => setMinValue(parseInt(event))}/>
+            <Button title="Apply" onPress={() => callUserData()}/>
+          </>
+        }
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
