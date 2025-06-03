@@ -15,8 +15,6 @@ interface GetStatementsParams {
 export const getTransferStatements = async (params: GetStatementsParams) => {
   const {
     token,
-    // start_date,
-    // end_date,
     min_value,
     max_value,
     transfer_type,
@@ -24,18 +22,33 @@ export const getTransferStatements = async (params: GetStatementsParams) => {
     page = 1,
   } = params;
   try {
+    const query: Record<string, any> = {
+      per_page,
+      page,
+    };
+
+    if (min_value) {
+      query.min_value = min_value;
+    } else {
+      delete query.min_value;
+    }
+    if (max_value) {
+      query.max_value = max_value;
+    } else {
+      delete query.max_value;
+    }
+    if (transfer_type && transfer_type !== 'all') {
+      query.transfer_type = transfer_type;
+    } else {
+      delete query.transfer_type;
+    }
+
     const response = await api.get('/users/bank_account_transfers/statements', {
       headers: {
         Authorization: `Bearer ${token}`,
         Accept: 'application/json',
       },
-      params: {
-        min_value,
-        max_value,
-        transfer_type,
-        per_page,
-        page,
-      },
+      params: query,
     });
 
     return response.data;

@@ -20,8 +20,9 @@ export const Container = styled.SafeAreaView`
 `;
 
 export const AccountItemFlatList = styled.FlatList`
-  padding: 18px;
-  margin-bottom: 2px;
+  padding-right: 18px;
+  padding-left: 18px;
+  margin-bottom: 4px;
 `;
 
 export const Content = styled.View`

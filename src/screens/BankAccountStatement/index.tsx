@@ -19,7 +19,7 @@ import { getUserData } from '../../services/getUserData';
 import { UserDataProps } from '../../interfaces/UserDataProps';
 
 // Styles
-import { Container, ScrollView, StatementFlatList, StyedButton, StyledTextField, Title } from './styles';
+import { Container, ScrollView, StatementFlatList, StyledTextField, Title } from './styles';
 import { getTransferStatements } from '../../services/getTransferStatements';
 import BankStatement from '../../components/BankStatement';
 import { useTheme } from 'styled-components/native';
@@ -35,31 +35,52 @@ const BankAccountStatement: React.FC = () => {
   const [selectedType, setSelectedType] = useState<'sent' | 'received' | 'all'>('all');
   const [maxValue, setMaxValue] = useState<number | undefined>(undefined);
   const [minValue, setMinValue] = useState<number | undefined>(undefined);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [isFetchingMore, setIsFetchingMore] = useState(false);
 
-  const callUserData = async () => {
+  const callUserData = async (pageToFetch = 1, append = false) => {
     const token = authData?.token;
-
     if (!token) {return;}
 
     try {
-      const [user, transfer ] = await Promise.all([
+      const [user, transfer] = await Promise.all([
         getUserData(token),
         getTransferStatements({
           token,
           max_value: maxValue,
           min_value: minValue,
           transfer_type: selectedType,
-          page: 1,
+          page: pageToFetch,
           per_page: 8,
         }),
       ]);
 
       setError('');
       setUserData(user.user_bank_accounts);
-      setTransferData(transfer.bank_account_transfers);
+
+      if (append) {
+        setTransferData(prev => [...prev, ...transfer.bank_account_transfers]);
+      } else {
+        setTransferData(transfer.bank_account_transfers);
+      }
+
+      setTotalPages(transfer.total_pages); // importante!
     } catch (err: any) {
       setError(err.message);
     }
+  };
+
+  const fetchMore = async () => {
+    if (isFetchingMore || page >= totalPages) {
+      return;
+    }
+
+    setIsFetchingMore(true);
+    const nextPage = page + 1;
+    await callUserData(nextPage, true);
+    setPage(nextPage);
+    setIsFetchingMore(false);
   };
 
   const handleRefresh = async () => {
@@ -69,8 +90,9 @@ const BankAccountStatement: React.FC = () => {
   };
 
   useEffect(() => {
-    callUserData();
-  }, []);
+    setPage(1);
+    callUserData(1, false);
+  }, [selectedType, maxValue, minValue]);
 
   if (error) {
     return (
@@ -83,10 +105,10 @@ const BankAccountStatement: React.FC = () => {
   return (
     <Container>
       {userData && userData.length > 0 && <Header userData={userData} />}
-      {transferData && <StatementFlatList
+      <StatementFlatList
         data={transferData}
-        keyExtractor={(item: any) => item.id}
-        renderItem={({ item } : any) => (
+        keyExtractor={(item: any) => item.id.toString()}
+        renderItem={({ item }: any) => (
           <BankStatement
             key={item.id}
             id={item.id}
@@ -115,8 +137,8 @@ const BankAccountStatement: React.FC = () => {
               onSelect={setSelectedType}
             />
             <StyledTextField placeholder="Max value" onChangeText={(event) => setMaxValue(parseInt(event))}/>
-            <StyledTextField placeholder="MIn value" onChangeText={(event) => setMinValue(parseInt(event))}/>
-            <StyedButton title="Apply" onPress={() => callUserData()}/>
+            <StyledTextField placeholder="Min value" onChangeText={(event) => setMinValue(parseInt(event))}/>
+            {/* <StyedButton title="Apply" onPress={() => callUserData(1, false)} /> */}
           </>
         }
         refreshControl={
@@ -127,7 +149,16 @@ const BankAccountStatement: React.FC = () => {
             tintColor={colors.primary}
           />
         }
-      />}
+        onEndReached={fetchMore}
+        onEndReachedThreshold={0.2}
+        ListFooterComponent={
+          isFetchingMore
+            ? <Title>Loading more...</Title>
+            : page >= totalPages
+              ? <Title>No more data</Title>
+              : null
+        }
+      />
     </Container>
   );
 };

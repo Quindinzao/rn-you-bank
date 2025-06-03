@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-export const YBBankStatement = styled.TouchableOpacity`
+export const YBBankStatement = styled.View`
   height: 104px;
   width: 100%;
   padding: 12px;

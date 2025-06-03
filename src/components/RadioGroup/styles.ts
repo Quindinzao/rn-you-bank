@@ -6,6 +6,7 @@ const width = Dimensions.get('screen').width;
 
 export const Container = styled.View`
   width: ${width - 36}px;
+  margin-top: 18px;
   flex-direction: column;
   gap: 12px;
 `;
