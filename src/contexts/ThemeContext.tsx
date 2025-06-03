@@ -1,7 +1,7 @@
 // External Libraries
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, useColorScheme } from 'react-native';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 
 // Interfaces
@@ -22,19 +22,24 @@ export const useThemeMode = () => {
 const THEME_KEY = '@app/theme';
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
+  const systemColorScheme = useColorScheme(); // 'light' | 'dark' | null
   const [themeMode, setThemeMode] = useState<ThemeMode>('dark');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const loadTheme = async () => {
       const storedTheme = await AsyncStorage.getItem(THEME_KEY);
+
       if (storedTheme === 'light' || storedTheme === 'dark') {
         setThemeMode(storedTheme);
+      } else if (systemColorScheme === 'light' || systemColorScheme === 'dark') {
+        setThemeMode(systemColorScheme);
       }
+
       setIsLoading(false);
     };
     loadTheme();
-  }, []);
+  }, [systemColorScheme]);
 
   const toggleTheme = async () => {
     const newTheme = themeMode === 'dark' ? 'light' : 'dark';
