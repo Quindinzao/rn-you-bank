@@ -2,6 +2,11 @@
 import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 
+// Components
+import Button from '../../components/Button';
+
+const width = Dimensions.get('screen').width;
+
 export const ScrollView = styled.ScrollView`
   flex: 1;
 
@@ -23,10 +28,9 @@ export const HomeFlatList = styled.FlatList`
 
 export const Content = styled.View`
   height: 100%;
-  width: ${Dimensions.get('screen').width - 36}px;
+  width: ${width - 36}px;
   align-items: flex-start;
   justify-content: flex-start;
-  background-color: blue;
 `;
 
 export const Title = styled.Text`
@@ -37,4 +41,9 @@ export const Title = styled.Text`
 
   font-family: ${({ theme }) => theme.fontFamily.nunitoMedium};
   color: ${({ theme }) => theme.colors.text};
+`;
+
+export const SignOutButton = styled(Button)`
+  width: ${width - 36}px;
+  margin-bottom: 16px;
 `;

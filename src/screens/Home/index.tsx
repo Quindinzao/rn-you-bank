@@ -2,30 +2,29 @@
 // External libraries
 import { useEffect, useState } from 'react';
 import { RefreshControl } from 'react-native';
+import { useTheme } from 'styled-components/native';
 
 // Components
 import MessageError from '../../components/MessageError';
 import Header from '../../components/Header';
+import BankStatement from '../../components/BankStatement';
 
 // Contexts
 import { useAuth } from '../../contexts/AuthContext';
 
 // Services
 import { getUserData } from '../../services/getUserData';
-// import { getTransfer } from '../../services/getTransfer';
+import { getTransferStatements } from '../../services/getTransferStatements';
 
 // Interfaces
 import { UserDataProps } from '../../interfaces/UserDataProps';
 
 // Styles
-import { Container, ScrollView, HomeFlatList, Title } from './styles';
-import { getTransferStatements } from '../../services/getTransferStatements';
-import BankStatement from '../../components/BankStatement';
-import { useTheme } from 'styled-components/native';
+import { Container, ScrollView, HomeFlatList, Title, SignOutButton } from './styles';
 
 const Home: React.FC = () => {
   const { colors } = useTheme();
-  const {authData} = useAuth();
+  const { authData, handleSignOut } = useAuth();
   const [userData, setUserData] = useState<UserDataProps[]>([]);
   const [transferData, setTransferData] = useState<any[]>([]);
   const [error, setError] = useState<string>('');
@@ -74,36 +73,40 @@ const Home: React.FC = () => {
 
   return (
     <Container>
-      {userData && userData.length > 0 && <Header userData={userData} />}
-      {transferData && transferData.length > 0 && <HomeFlatList
-        data={transferData}
-        keyExtractor={(item: any) => item.id}
-        renderItem={({ item } : any) => (
-          <BankStatement
-            key={item.id}
-            id={item.id}
-            amount_to_transfer={item.amount_to_transfer}
-            to_bank_account={{
-              holder_name: item.to_bank_account.holder_name,
-              bank_name: item.to_bank_account.bank_name,
-            }}
-            from_user_bank_account={{
-              holder_name: item.from_user_bank_account.holder_name,
-              bank_name: item.from_user_bank_account.bank_name,
-              account_type: item.from_user_bank_account.account_type,
-            }}
-          />
-        )}
-        ListEmptyComponent={<Title>No accounts available</Title>}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={handleRefresh}
-            colors={[colors.primary]}
-            tintColor={colors.primary}
-          />
-        }
-      />}
+      {userData && <Header userData={userData} />}
+      {transferData &&
+
+        <HomeFlatList
+          data={transferData}
+          keyExtractor={(item: any) => item.id}
+          renderItem={({ item, index } : any) => (
+            <BankStatement
+              key={index}
+              id={item.id}
+              amount_to_transfer={item.amount_to_transfer}
+              to_bank_account={{
+                holder_name: item.to_bank_account.holder_name,
+                bank_name: item.to_bank_account.bank_name,
+              }}
+              from_user_bank_account={{
+                holder_name: item.from_user_bank_account.holder_name,
+                bank_name: item.from_user_bank_account.bank_name,
+                account_type: item.from_user_bank_account.account_type,
+              }}
+            />
+          )}
+          ListEmptyComponent={<Title>No accounts available</Title>}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={handleRefresh}
+              colors={[colors.primary]}
+              tintColor={colors.primary}
+            />
+          }
+        />
+      }
+      <SignOutButton title="Sign Out" onPress={handleSignOut} />
     </Container>
   );
 };

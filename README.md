@@ -1,97 +1,68 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Saudações 🖖
+Se você for alguém que, de alguma forma, veio parar aqui, sinta-se à vontade para clonar este repositório.
+Agora se você é da SAGAT AI, segue a fio um breve guia dessa aplicação.
 
-# Getting Started
-
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
-
-## Step 1: Start Metro
-
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
-
-To start the Metro dev server, run the following command from the root of your React Native project:
+## Rodar o aplicativo 📱
+Para testemunhar o pleno funcionamento do aplicativo, você deve ter instalado algumas coisas que vou presumir que já tenha instalado. De resto, clone este repositório e siga os passos abaixo. Qualquer dúvida,podem entrar em contato comigo.
 
 ```sh
-# Using npm
-npm start
+# Usando npm
+npm install
+npm run ios # Para rodar no iOS
+npm run android # Para rodar no Android
 
-# OR using Yarn
-yarn start
+# Ou usando Yarn
+yarn
+yarn ios # Para rodar no iOS
+yarn android # Para rodar no Android
 ```
 
-## Step 2: Build and run your app
+## Funcionalidades ⚙️
+Esse aplicativo tem diversas funcionalidades, entre elas estão:
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+#### Tema claro e tema escuro 🌓
+O tema claro e o tema escuro é algo que eu, particularmente, gosto muito de entregar nas minhas aplicações. Nesse projeto, esses temas variam de acordo com o tema do seu dispositivo.
 
-### Android
+#### Registro de conta ™️
+Apesar de não estar explicitado nas instruções, fica implícita a necessidade de registrar contas.
 
-```sh
-# Using npm
-npm run android
+### Autenticação ✅
+Outra parte que eu gosto muito que tenha em minhas aplicações é a parte de autenticação, onde, nesse caso, é necessário ter um e-mail e uma senha.
 
-# OR using Yarn
-yarn android
-```
+### Painel de conta 💳
+É exbido na Header os dados do usuário, podendo ocultar o seu saldo atual.
 
-### iOS
+### Extrato completo com filtro e scroll infinito 📋
+É possível verificar o extrato com filtro de recebidas e entradas, valor máximo e mínimo, e intervalo de data.
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+### Recarregar 🔋
+Se os dados da sua conta ainda não foram atualizados, não se preocupe: você pode recarregar os dados com um reloadng ao deslizar o dedo para baixo.
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+### Transferência 🏦
+É possível fazer e receber transferências entre uma conta e outra, selecionando para quem você quer transferir, o que facilita o processo de digitação.
 
-```sh
-bundle install
-```
+### TabBar
+Não sei vocês, mas gosto muito de implementar TabBar nas aplicações.
 
-Then, and every time you update your native dependencies, run:
+## Endpoints utilizados
+- */auth/sign_in*
+- */auth/sign_up*
+- */users/bank_accounts*
+- */users/bank_accounts/my*
+- */users/bank_account_transfers*
+- */users/bank_account_transfers/statement*
 
-```sh
-bundle exec pod install
-```
+## O que eu faria se tivesse mais tempo? ⏱️
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+### Leitura digital para entrar 🫆
+Certamente faria isso, além de ser algo bem moderno, é muito interessante do ponto de vista da segurança digital, tema muito debatido hoje em dia.
 
-```sh
-# Using npm
-npm run ios
+### Corrigiria pequenos pontos de problema ❌
+Todo aplicativo tem algum pequeno problema que pode comprometer o sistema, seria mais cauteloso com esses pontos e me comprometeria mais com os dados que estão sendo expostos.
 
-# OR using Yarn
-yarn ios
-```
+## Figma ✏️
+Para mostrar que tenho um pézinho com design, fiz um pequeno esboço do que seria entregue. Pelo pouco tempo de tinha, não consegui concluir, mas segue o link abaixo, caso queiram conferir.
+[You Bank Figma](https://www.figma.com/design/QyQZgz8wJqGFTSJJwdauaU/You-Bank?node-id=0-1&t=0IdKjSBY7zmjPkB7-1)
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+## Imagens e Vídeos 🎥📷
+Segue um link com os vídeos e imagens dos testes do aplicativo.

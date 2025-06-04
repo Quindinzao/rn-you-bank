@@ -16,7 +16,7 @@ export const handleRegister = async (values: RegisterProps) => {
       user: values,
     });
 
-    Alert.alert('Success', 'Transfer successfully!');
+    Alert.alert('Success', 'Register successfully!');
     return response.data;
 
   } catch (err: any) {

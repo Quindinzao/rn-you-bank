@@ -3,7 +3,7 @@ import React from 'react';
 import BootSplash from 'react-native-bootsplash';
 import { NavigationContainer } from '@react-navigation/native';
 import { styled, useTheme } from 'styled-components/native';
-import { Alert, StatusBar, StatusBarStyle } from 'react-native';
+import { StatusBar, StatusBarStyle } from 'react-native';
 
 // Routes
 import AppStack from './stacks/app.routes';
